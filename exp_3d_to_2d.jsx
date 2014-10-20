@@ -26,3 +26,14 @@ function exp_3d_to_2d()
 }
 
 exp_3d_to_2d()
+
+
+
+/*
+
+L1 = comp("Comp 1").layer("source_3d")
+P = L1.toWorld(L1.anchorPoint);
+L2 = thisComp.layer("nested_comp");
+L2.toComp(P);
+
+*/
