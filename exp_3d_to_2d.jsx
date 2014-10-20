@@ -36,4 +36,12 @@ P = L1.toWorld(L1.anchorPoint);
 L2 = thisComp.layer("nested_comp");
 L2.toComp(P);
 
+
+2D comp pos from a 2d pos in a transformed 3d comp
+L1 = comp("3d_comp").layer("null_2d");
+P = L1.toWorld(L1.anchorPoint);
+L2 = thisComp.layer("3d_comp");
+L2.toComp(P);
+
+
 */
