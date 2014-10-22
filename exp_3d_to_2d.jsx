@@ -44,4 +44,13 @@ L2 = thisComp.layer("3d_comp");
 L2.toComp(P);
 
 
+// CAMERA Z AXIS TO WORLS POS
+L1 = thisComp.layer("Camera 1")
+p = L1.toWorld([0,0,1]);
+
+s = 100;
+[p[0]*s, p[1]*s, p[2]*s]
+
+
+
 */
