@@ -22,25 +22,19 @@ var pos_null = comp.layers.addNull();
 pos_null.name = "pos_null"
 pos_null.threeDLayer = true;
 
-// CAMERA X AXIS TO WORLS POS
+// x axis
 var exp_x = "L1 = thisComp.layer(\"" + cam.name+"\");\n";
 exp_x += "p = L1.toWorldVec([1,0,0]);\n";
-//exp_x += "s = 100;\n";
-//exp_x += "[p[0]*s, p[1]*s, p[2]*s]";
 
-// CAMERA Y AXIS TO WORLS POS
+// yaxis
 var exp_y = "L1 = thisComp.layer(\"" + cam.name+"\");\n";
 exp_y += "p = L1.toWorldVec([0,1,0]);\n";
-//exp_y += "s = 100;\n";
-//exp_y += "[p[0]*s, p[1]*s, p[2]*s]";
 
-// CAMERA Z AXIS TO WORLS POS
+// z axis
 var exp_z = "L1 = thisComp.layer(\"" + cam.name+"\");\n";
 exp_z += "p = L1.toWorldVec([0,0,1]);\n";
-//exp_z += "s = 100;\n";
-//exp_z += "[p[0]*s, p[1]*s, p[2]*s]";
 
-// CAMERA WORLD POS
+// pos
 var exp_pos = "L1 = thisComp.layer(\"" + cam.name+"\");\n";
 exp_pos += "p = L1.toWorld([0,0,0]);\n";
 
@@ -67,15 +61,25 @@ for (i = 0; i < fps; i++)
     
     var arr = [x[0],x[1],x[2], y[0],y[1],y[2], z[0],z[1],z[2], p[0],p[1],p[2]]
     array[i] = arr;
+    
+    //$.writeln(time);
 }
 
-//$.writeln(obj.matrix);
-
 json = JSON.stringify(obj, null, 4)
-
-$.writeln(json);
+//$.writeln(json);
 
 x_null.remove();
 y_null.remove();
 z_null.remove();
 pos_null.remove();
+
+// Get the text file to use; and read the lines of text
+var file = File.saveDialog("Select a text file", "HAHA, *.json");
+    
+if (file != null)
+{
+    file.open("w");
+    file.writeln(json);
+    file.close();
+}
+    
