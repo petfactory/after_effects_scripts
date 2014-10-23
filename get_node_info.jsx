@@ -9,6 +9,9 @@ var num_sel = sel_layers.length
 var fps = comp.frameRate;
 var width = comp.width;
 var height = comp.height;
+var start_frame = 0;
+var end_frame = 24;
+var time_step = 1.0/fps
 
 // the info object
 var info = {};
@@ -47,18 +50,22 @@ for (var i = 0; i < num_sel; i++)
 // get the values over the desired period
 // we store the transformation of the null and cameras in "parallell" arrays
 // they are later to be associated with respective node/camera
-for (var i = 0; i < 5; i++)
+var time;
+for (var i = start_frame; i < end_frame+1; i++)
 {
+    time = time_step * i;
+    //$.writeln(time)
     for (var j = 0; j < null_nodes.length; j++)
     {
-        null_trans_array[j].push(j* i);
+        var pos = null_nodes[j].property("position").valueAtTime(time, false);
+        null_trans_array[j].push(pos[0]);
     }
 
     for (var k = 0; k < cam_nodes.length; k++)
     {
-        cam_trans_array[k].push(k * i);
+        var pos = cam_nodes[k].property("position").valueAtTime(time, false);
+        cam_trans_array[k].push(pos[0]);
     }
-    
 }
 
 // the arrays that will hold null/camera info objects, will be assigned to the return object
@@ -70,14 +77,14 @@ var cam_list = new Array();
 for (var i = 0; i < null_nodes.length; i++)
 {
     obj = {};
-    obj[null_nodes[i].name] = null_array[i];
+    obj[null_nodes[i].name] = null_trans_array[i];
     null_list.push(obj);
 }
 
 for (var i = 0; i < cam_nodes.length; i++)
 {
     obj = {};
-    obj[cam_nodes[i].name] = cam_array[i];
+    obj[cam_nodes[i].name] = cam_trans_array[i];
     cam_list.push(obj);
 }
 
@@ -88,3 +95,16 @@ ret_obj.null = null_list;
 ret_obj.cam = cam_list;
 
 json = JSON.stringify(ret_obj, null, 4)
+$.writeln(json);
+
+// Get the text file to use; and read the lines of text
+var file = File.saveDialog("Select a text file", "HAHA, *.json");
+    
+if (file != null)
+{
+    file.open("w");
+    file.writeln(json);
+    file.close();
+}
+
+ 
