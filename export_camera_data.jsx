@@ -82,4 +82,29 @@ if (file != null)
     file.writeln(json);
     file.close();
 }
-    
+ 
+
+
+/*
+import pymel.core as pm
+import json
+
+
+read_data = None
+
+with open('/Users/johan/Desktop/anim.json', 'r') as f:
+    read_data = f.read()
+
+
+data = json.loads(read_data)
+
+all_m = data.get('matrix')
+m = all_m[12]
+
+
+tm = pm.datatypes.TransformationMatrix([m[0], m[1], m[2], 0], [m[3], m[4], m[5], 0], [m[6], m[7], m[8], 0], [m[9], m[10], m[11], 1])
+
+c = pm.polyCube()[0]
+
+c.setMatrix(tm)
+*/   
