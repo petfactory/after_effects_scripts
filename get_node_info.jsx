@@ -10,16 +10,21 @@ var fps = comp.frameRate;
 var width = comp.width;
 var height = comp.height;
 
-var null_list = new Array();
-var cam_list = new Array();
-
+// the info object
 var info = {};
 info.fps = fps;
 info.height = height;
 info.width = width;
 
+// the null nodes that are valid to export i.e. 3D AVLayer
 var null_nodes = new Array();
+// the null transformation info
+var null_trans_array = new Array();
+
+// camera nodes to export
 var cam_nodes = new Array();
+// the cam transformation info
+var cam_trans_array = new Array();
 
 // gather the nodes we want to export
 for (var i = 0; i < num_sel; i++)
@@ -27,26 +32,56 @@ for (var i = 0; i < num_sel; i++)
     // export 3D AVLayes
     if (sel_layers[i] instanceof AVLayer  && sel_layers[i].threeDLayer)
     {
-        null_nodes[null_nodes.length] = sel_layers[i];
+        null_nodes.push(sel_layers[i]);
+        null_trans_array.push(new Array());
     }
     
     // and cameras
     else if (sel_layers[i] instanceof CameraLayer)
     {
-        cam_nodes[cam_nodes.length] = sel_layers[i];
+        cam_nodes.push(sel_layers[i]);
+        cam_trans_array.push(new Array());
     }
 }   
 
-
 // get the values over the desired period
+// we store the transformation of the null and cameras in "parallell" arrays
+// they are later to be associated with respective node/camera
 for (var i = 0; i < 5; i++)
 {
+    for (var j = 0; j < null_nodes.length; j++)
+    {
+        null_trans_array[j].push(j* i);
+    }
+
+    for (var k = 0; k < cam_nodes.length; k++)
+    {
+        cam_trans_array[k].push(k * i);
+    }
     
 }
 
-null_list[0] = null_nodes[0].name;
-cam_list[0] = cam_nodes[0].name;
+// the arrays that will hold null/camera info objects, will be assigned to the return object
+var null_list = new Array();
+var cam_list = new Array();
 
+// create null info objects, key > value pairs obj["name"] = [0,1,2...]
+// the node name will be the key of the tarnsformation array
+for (var i = 0; i < null_nodes.length; i++)
+{
+    obj = {};
+    obj[null_nodes[i].name] = null_array[i];
+    null_list.push(obj);
+}
+
+for (var i = 0; i < cam_nodes.length; i++)
+{
+    obj = {};
+    obj[cam_nodes[i].name] = cam_array[i];
+    cam_list.push(obj);
+}
+
+// create the return object and bind the info
 var ret_obj = {};
 ret_obj.info = info;
 ret_obj.null = null_list;
