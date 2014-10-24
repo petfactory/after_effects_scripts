@@ -103,7 +103,6 @@ ret_obj.camera = cam_list;
 json = JSON.stringify(ret_obj, null, 4)
 $.writeln(json);
 
-/*
 // Get the text file to use; and read the lines of text
 var file = File.saveDialog("Select a text file", "HAHA, *.json");
     
@@ -113,4 +112,3 @@ if (file != null)
     file.writeln(json);
     file.close();
 }
-*/
