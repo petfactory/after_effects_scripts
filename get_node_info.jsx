@@ -10,14 +10,8 @@ var fps = comp.frameRate;
 var width = comp.width;
 var height = comp.height;
 var start_frame = 0;
-var end_frame = 24;
+var end_frame = 5;
 var time_step = 1.0/fps
-
-// the info object
-var info = {};
-info.fps = fps;
-info.height = height;
-info.width = width;
 
 // the null nodes that are valid to export i.e. 3D AVLayer
 var null_nodes = new Array();
@@ -76,27 +70,40 @@ var cam_list = new Array();
 // the node name will be the key of the tarnsformation array
 for (var i = 0; i < null_nodes.length; i++)
 {
-    obj = {};
-    obj[null_nodes[i].name] = null_trans_array[i];
-    null_list.push(obj);
+    null_obj = {};
+    null_info = {};
+    null_obj[null_nodes[i].name] = null_info;
+    null_info["matrix"] = null_trans_array[i];
+    null_list.push(null_obj);
 }
 
 for (var i = 0; i < cam_nodes.length; i++)
 {
-    obj = {};
-    obj[cam_nodes[i].name] = cam_trans_array[i];
-    cam_list.push(obj);
+    cam_obj = {};
+    cam_info = {};
+    cam_obj[cam_nodes[i].name] = cam_info;
+    cam_info["matrix"] = cam_trans_array[i];
+    cam_info["zoom"] = cam_nodes[i].property("zoom").value
+    cam_list.push(cam_obj);
 }
 
 // create the return object and bind the info
 var ret_obj = {};
+
+// the info object
+var info = {};
+info.fps = fps;
+info.height = height;
+info.width = width;
+
 ret_obj.info = info;
 ret_obj.null = null_list;
-ret_obj.cam = cam_list;
+ret_obj.camera = cam_list;
 
 json = JSON.stringify(ret_obj, null, 4)
 $.writeln(json);
 
+/*
 // Get the text file to use; and read the lines of text
 var file = File.saveDialog("Select a text file", "HAHA, *.json");
     
@@ -106,5 +113,4 @@ if (file != null)
     file.writeln(json);
     file.close();
 }
-
- 
+*/
