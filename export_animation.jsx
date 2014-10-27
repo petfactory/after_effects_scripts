@@ -143,10 +143,10 @@ for (var i = start_frame; i < end_frame+1; i++)
     //$.writeln(time)
     for (var j = 0; j < null_nodes.length; j++)
     {
-        var x = null_effect_array[j]("3D Point").valueAtTime(time, false);
-        var y = null_effect_array[j+1]("3D Point").valueAtTime(time, false);
-        var z = null_effect_array[j+2]("3D Point").valueAtTime(time, false);
-        var t = null_effect_array[j+3]("3D Point").valueAtTime(time, false);
+        var x = null_effect_array[j*4]("3D Point").valueAtTime(time, false);
+        var y = null_effect_array[j*4+1]("3D Point").valueAtTime(time, false);
+        var z = null_effect_array[j*4+2]("3D Point").valueAtTime(time, false);
+        var t = null_effect_array[j*4+3]("3D Point").valueAtTime(time, false);
         
         null_trans_array[j].push([x, y, z, t]);
         //null_trans_array[j].push([x[0],x[1],x[2], y[0],y[1],y[2], z[0],z[1],z[2], t[0],t[1],t[2]]);
@@ -154,10 +154,10 @@ for (var i = start_frame; i < end_frame+1; i++)
 
     for (var k = 0; k < cam_nodes.length; k++)
     {
-        var x = cam_effect_array[k]("3D Point").valueAtTime(time, false);
-        var y = cam_effect_array[k+1]("3D Point").valueAtTime(time, false);
-        var z = cam_effect_array[k+2]("3D Point").valueAtTime(time, false);
-        var t = cam_effect_array[k+3]("3D Point").valueAtTime(time, false);
+        var x = cam_effect_array[k*4]("3D Point").valueAtTime(time, false);
+        var y = cam_effect_array[k*4+1]("3D Point").valueAtTime(time, false);
+        var z = cam_effect_array[k*4+2]("3D Point").valueAtTime(time, false);
+        var t = cam_effect_array[k*4+3]("3D Point").valueAtTime(time, false);
         
         cam_trans_array[k].push([x, y, z, t]);
         //cam_trans_array[k].push([x[0],x[1],x[2], y[0],y[1],y[2], z[0],z[1],z[2], t[0],t[1],t[2]]);
