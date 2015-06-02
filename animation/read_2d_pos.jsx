@@ -89,11 +89,11 @@ function read_json()
             if (use_time_offset) frame_offset = frame_start;
             else frame_offset = 0;
     
-            var time_offset = currentFormatToTime(frame_offset, fps);
+            var time_offset = frame_offset / fps;
                                     
             null_list = json_obj.null;
             
-            $.writeln("Aniamtion has [" + frame_range + "] frames");
+            //$.writeln("Aniamtion has [" + frame_range + "] frames");
 
             for (var i = 0; i < null_list.length; ++i)
             {
@@ -107,16 +107,17 @@ function read_json()
                     pos = my_null.property("position");
                     my_null.startTime = time_offset;
     
-                    $.writeln("Creating node: " + name);
+                    //$.writeln("Creating node: " + name);
                     x_list = obj[name].x;
                     y_list = obj[name].y;
                     
                     for (var j = 0; j < frame_range; ++j)
                     {
-                        var time = currentFormatToTime(j+frame_offset, fps);
+                        //var time = currentFormatToTime(j+frame_offset, fps);
+                        var time = (j+frame_offset) /  fps;
                         // note that we need to flip the y axis
                         pos.setValueAtTime(time, [x_list[j], (-y_list[j] + height)]);
-                        $.writeln("Frame: " + j);
+                        //$.writeln("Frame: " + j);
                      }
                 }                
             }
