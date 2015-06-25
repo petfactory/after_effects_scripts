@@ -155,6 +155,7 @@ function myScript(thisObj)
                 end_frame = start_frame + 1;
                 add_to_render_queue(comp, start_frame, end_frame, String(dir_path), template_string)
             }
+
         } // end render button callback
 
         //Setup panel sizing and make panel resizable
