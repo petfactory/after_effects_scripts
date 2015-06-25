@@ -1,3 +1,21 @@
+function collect_comps()
+{
+    var project = app.project
+    num_items = project.numItems;
+    var items = project.items;
+
+    var comp_array = [];
+    for (var i = 0;  i < num_items; i++)
+    {
+        if (items[i+1] instanceof CompItem)
+        {
+            comp_array.push(items[i+1]);
+        }
+    }
+    //$.writeln(comp_array);
+    return comp_array
+}
+
 function add_to_render_queue(comp, start_frame, end_frame)
 {
     var fps = 25.0;
@@ -10,7 +28,8 @@ function add_to_render_queue(comp, start_frame, end_frame)
     var dir_path = "/Users/johan/Desktop/test_afx"
     var ext = "png";
     var padding = "[####]";
-    var file_name = "Hello_world";
+    //var file_name = "Hello_world";
+    var file_name = comp.name;
     var file_path = file_name+"_"+start_frame+"."+padding+"."+ext;
 
     var render_item = app.project.renderQueue.items.add(comp);
@@ -51,9 +70,13 @@ function add_to_render_queue(comp, start_frame, end_frame)
     //$.writeln(romItem1_all_str_json)
 }
 
-var comp = app.project.activeItem;
+//var comp = app.project.activeItem;
 //if (activeItem != null && activeItem instanceof CompItem)
-add_to_render_queue(comp, 0, 1)
-add_to_render_queue(comp, 25, 26)
-add_to_render_queue(comp, 50, 51)
-add_to_render_queue(comp, 75, 76)
+
+comp_array = collect_comps();
+
+add_to_render_queue(comp_array[0], 0, 1)
+add_to_render_queue(comp_array[0], 25, 26)
+
+add_to_render_queue(comp_array[1], 50, 51)
+add_to_render_queue(comp_array[1], 75, 76)
