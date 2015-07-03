@@ -105,12 +105,11 @@ function myScript(thisObj)
             
             for (i = 0; i < sel_layers.length; i++)
             {
-                var exp_string = exp_raw_text;
+                //var exp_string = exp_raw_text;
+                // total hack to remove the slanted quotationmark, look into this...
+                var exp_string = exp_raw_text.replace("\”", "\"");
                 
                 exp_string = exp_string.replace('{0}', eval(replace_0.text.replace("i", i)));
-                // total hack to remove the slanted quotationmark, look into this
-                exp_string = exp_string.replace("\”", "\"");
-
                 exp_string = exp_string.replace('{1}', eval(replace_1.text.replace("i", i)));
                 exp_string = exp_string.replace('{2}', eval(replace_2.text.replace("i", i)));
                 exp_string = exp_string.replace('{3}', eval(replace_3.text.replace("i", i)));
