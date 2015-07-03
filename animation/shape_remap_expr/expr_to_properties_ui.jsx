@@ -51,7 +51,7 @@ function myScript(thisObj)
         
         myPanel.add ("statictext", undefined, "Expression:");
         
-        add_ctrl_button = myPanel.add ("button", undefined, "Add ctrl path");
+        add_ctrl_button = myPanel.add ("button", undefined, "Add expression ctrl string");
         add_ctrl_button.minimumSize.width = min_width;
         add_ctrl_button.onClick = function()
         {
@@ -130,9 +130,21 @@ function myScript(thisObj)
 
         remove_exp_button = myPanel.add ("button", undefined, "Remove expression");
         remove_exp_button.minimumSize.width = min_width;
+        
         remove_exp_button.onClick = function()
         {
-            alert("Not implemented!")
+            if (!confirm("Remove expressions from selected layers?")) return;
+            
+            var comp = app.project.activeItem;
+            if (comp == null || !(comp instanceof CompItem)) { alert("Select a comp!"); return; }
+            
+            var property_string = prop_edittext.text;
+            var property_array = property_string.split(".");
+            var sel_layers = comp.selectedLayers;
+            for (i = 0; i < sel_layers.length; i++)
+            {
+                error_layer = build_eval_string(sel_layers[i], property_array, "");
+            }
         }
 
         //Setup panel sizing and make panel resizable
