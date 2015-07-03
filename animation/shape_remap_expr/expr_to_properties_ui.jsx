@@ -51,20 +51,44 @@ function myScript(thisObj)
         
         myPanel.add ("statictext", undefined, "Expression:");
         
+        add_ctrl_button = myPanel.add ("button", undefined, "Add ctrl path");
+        add_ctrl_button.minimumSize.width = min_width;
+        add_ctrl_button.onClick = function()
+        {
+            var comp = app.project.activeItem;     
+            if (comp == null) {alert("Select a comp!"); return;}
+            
+            var sel_layers = comp.selectedLayers;
+            if (sel_layers.length < 1) {alert("Nothing is selected!"); return;}
+            
+            var sel_properties = comp.selectedProperties;
+            if (sel_properties.length < 1) {alert("Select a property!"); return;}
+            
+            prop_grp_name = sel_properties[0].name
+            // index 1 will give us the name, 2 the compositing options
+            prop_name = sel_properties[0].property(1).name
+
+            ctrl_string = 'thisComp.layer("'+sel_layers[0].name+'").effect("'+prop_grp_name+'")("'+prop_name+'")';  
+            
+            if (exp_edittext.text.length < 1) exp_edittext.text = ctrl_string;
+            else alert("The edit text is not empty\nRemove all text and try again.")
+
+        }
+            
         //var exp_edittext = myPanel.add ("edittext", [0, 0, 200, 70], "{0}", {multiline: true, scrolling: true, wantReturn: true});
-        var exp_edittext = myPanel.add ("edittext", undefined, "{0}");
+        var exp_edittext = myPanel.add ("edittext", undefined, "");
         exp_edittext.characters = 20;
         exp_edittext.minimumSize.width = min_width;
         
         myPanel.add ("statictext", undefined, "Property:");
         
-        var prop_edittext = myPanel.add ("edittext", undefined, "Opacity");
+        var prop_edittext = myPanel.add ("edittext", undefined, "");
         prop_edittext.characters = 20;
         prop_edittext.minimumSize.width = min_width;
         
-        render_button = myPanel.add ("button", undefined, "Add expression");
-        render_button.minimumSize.width = min_width;
-        render_button.onClick = function()
+        add_exp_button = myPanel.add ("button", undefined, "Add expression");
+        add_exp_button.minimumSize.width = min_width;
+        add_exp_button.onClick = function()
         {
             
             var comp = app.project.activeItem;
@@ -102,6 +126,13 @@ function myScript(thisObj)
                 alert("Could not add expression to "+error_array.length+" layer(s)\nMake sure the specified properties exists");
             }
 
+        }
+
+        remove_exp_button = myPanel.add ("button", undefined, "Remove expression");
+        remove_exp_button.minimumSize.width = min_width;
+        remove_exp_button.onClick = function()
+        {
+            alert("Not implemented!")
         }
 
         //Setup panel sizing and make panel resizable
