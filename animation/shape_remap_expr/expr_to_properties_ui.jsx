@@ -75,8 +75,8 @@ function myScript(thisObj)
 
         }
             
-        //var exp_edittext = myPanel.add ("edittext", [0, 0, 200, 70], "{0}", {multiline: true, scrolling: true, wantReturn: true});
-        var exp_edittext = myPanel.add ("edittext", undefined, "");
+        var exp_edittext = myPanel.add ("edittext", [0, 0, 200, 70], "", {multiline: true, scrolling: true, wantReturn: true});
+        //var exp_edittext = myPanel.add ("edittext", undefined, "");
         exp_edittext.characters = 20;
         exp_edittext.minimumSize.width = min_width;
         
@@ -108,6 +108,9 @@ function myScript(thisObj)
                 var exp_string = exp_raw_text;
                 
                 exp_string = exp_string.replace('{0}', eval(replace_0.text.replace("i", i)));
+                // total hack to remove the slanted quotationmark, look into this
+                exp_string = exp_string.replace("\”", "\"");
+
                 exp_string = exp_string.replace('{1}', eval(replace_1.text.replace("i", i)));
                 exp_string = exp_string.replace('{2}', eval(replace_2.text.replace("i", i)));
                 exp_string = exp_string.replace('{3}', eval(replace_3.text.replace("i", i)));
