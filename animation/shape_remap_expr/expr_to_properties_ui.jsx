@@ -68,10 +68,14 @@ function myScript(thisObj)
             // index 1 will give us the name, 2 the compositing options
             prop_name = sel_properties[0].property(1).name
 
-            ctrl_string = 'thisComp.layer("'+sel_layers[0].name+'").effect("'+prop_grp_name+'")("'+prop_name+'")';  
-            
+            ctrl_string = "thisComp.layer(\""+sel_layers[0].name+"\").effect(\""+prop_grp_name+"\")(\""+prop_name+"\")";
+            //alert(ctrl_string)
+            /*
             if (exp_edittext.text.length < 1) exp_edittext.text = ctrl_string;
             else alert("The edit text is not empty\nRemove all text and try again.")
+            */
+            var ctrl_string = "\"test\"";
+            system.callSystem("echo " +  ctrl_string + " | pbcopy");
 
         }
             
